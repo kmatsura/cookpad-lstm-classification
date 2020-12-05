@@ -12,6 +12,7 @@ mysql-connector-python = "*"
 python-dotenv = "*"
 ginza = "*"
 spacy = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3.8"
