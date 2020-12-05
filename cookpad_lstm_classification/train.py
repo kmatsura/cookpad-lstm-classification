@@ -31,7 +31,7 @@ def main():
         os.environ.get("LEARNING_RATE")))
 
     losses = []
-    for epoch in range(int(os.environ.get("EPOCHS"))):
+    for epoch in range(int(os.environ["NUM_EPOCHS"])):
         all_loss = 0
         for title_embeded, cat in zip(traindata["title_embeded"], traindata["category"]):
             model.zero_grad()
@@ -51,6 +51,7 @@ def main():
     OUTPUTFILENAME = "trainresult-{}.pkl".format(now)
     with open(os.path.join(RESULTDIR, OUTPUTFILENAME), 'wb') as f:
         pickle.dump((losses, category_index, model), f)
+        print("model saved")
 
     test_num = len(testdata)
     a = 0
