@@ -7,16 +7,7 @@ import torch
 import torch.nn as nn
 from ginza import *
 import spacy
-
-
-def sub_number_and_symbol(sentence):
-    # 半角全角英数字除去
-    sentence = re.sub(r'[0-9０-９a-zA-Zａ-ｚＡ-Ｚ]+', " ", sentence)
-    # 記号もろもろ除去
-    sentence = re.sub(
-        r'[\．_－―─！＠＃＄％＾＆\-‐|\\＊\“（）＿■×+α※÷⇒—●★☆〇◎◆▼◇△□☸♥°♬(：〜～＋=)／*&^%$#@!~`){}［］…\[\]\"\'\”\’:;<>?＜＞〔〕〈〉？、。・,\./『』【】「」→←○《》≪≫\n\u3000]+', "", sentence)
-    return sentence
-
+from util import sub_number_and_symbol
 
 def main():
     BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
