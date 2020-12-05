@@ -46,11 +46,11 @@ def main():
     print("done.")
     RESULTDIR = os.path.join(BASEDIR, os.environ.get("RESULTDIR"))
     if not os.path.exists(RESULTDIR):
-        os.mkdirs(RESULTDIR)
+        os.makedirs(RESULTDIR)
     now = str(datetime.datetime.now()).strip()
     OUTPUTFILENAME = "trainresult-{}.pkl".format(now)
     with open(os.path.join(RESULTDIR, OUTPUTFILENAME), 'wb') as f:
-        pickle.dump((losses, model), f)
+        pickle.dump((losses, category_index, model), f)
 
     test_num = len(testdata)
     a = 0
