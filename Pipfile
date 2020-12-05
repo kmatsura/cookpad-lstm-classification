@@ -10,6 +10,8 @@ torch = "*"
 pandas = "*"
 mysql-connector-python = "*"
 python-dotenv = "*"
+ginza = "*"
+spacy = "*"
 
 [requires]
 python_version = "3.8"
