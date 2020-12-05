@@ -1,5 +1,6 @@
 import os
 import re
+import pickle
 import pandas as pd
 import numpy as np
 import torch
@@ -23,7 +24,7 @@ def main():
     FILENAME = "recipe_category_datasets.csv"
     assert os.path.exists(os.path.join(DATADIR, FILENAME)
                           ), "input file not found"
-    OUTPUTFILENAME = "recipe_category_datasets_preprocessed.csv"
+    OUTPUTFILENAME = "recipe_category_datasets_preprocessed.pkl"
     datasets = pd.read_csv(os.path.join(DATADIR, FILENAME))
     nlp = spacy.load("ja_ginza")  # GiNZAモデルの読み込み
     word2index = {}  # 単語ID用の辞書
@@ -51,8 +52,8 @@ def main():
         sentence_matrix = embeds(indexed)
         datasets["title_embeded"][i] = sentence_matrix.view(
             len(sentence_matrix), 1, -1)
-    datasets.to_csv(os.path.join(DATADIR, FILENAME))
-
+    with open(os.path.join(DATADIR, OUTPUTFILENAME), 'wb') as f:
+        pickle.dump(datasets , f)
 
 if __name__ == "__main__":
     main()
