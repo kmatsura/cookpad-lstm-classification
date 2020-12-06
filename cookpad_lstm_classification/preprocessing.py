@@ -40,14 +40,14 @@ def main():
         if max_len < len(tmp):
             max_len = len(tmp)
     VOCAB_SIZE = len(word2index)
-    EMBEDDING_DIM = os.environ.get("EMBEDDING_DIM")
+    EMBEDDING_DIM = int(os.environ.get("EMBEDDING_DIM"))
     datasets["title_embeded"] = None
-    embeds = nn.Embedding(VOCAB_SIZE, EMBEDDING_DIM, padding_idx=0)
+    embeds = nn.Embedding(VOCAB_SIZE + 1, EMBEDDING_DIM, padding_idx=0)
     for i in range(len(datasets)):
-        indexed = torch.tensor(
-            [word2index[w] for w in datasets["title_divided"][i]], dtype=torch.long)
+        indexed = [word2index[w] for w in datasets["title_divided"][i]]
         for i in range(max_len - len(indexed)):  # padding
             indexed.insert(0, 0)
+        indexed = torch.tensor(indexed,  dtype=torch.long)
         sentence_matrix = embeds(indexed)
         datasets["title_embeded"][i] = sentence_matrix.view(
             len(sentence_matrix), 1, -1)
